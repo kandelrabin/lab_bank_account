@@ -33,46 +33,54 @@ public class BankAccount {
         this.firstName = firstName;
     }
 
-    //TODO:+ getLastName(): String
     // Write getter for last name
     public String getLastName(){
         return this.lastName;
     }
 
-
-    //TODO:+ setLastName(String): void
     // Write setter for last name.
+    public void setLastName(String lastName){
+        this.lastName = lastName;
+    }
 
-    //TODO:+ getDateOfBirth(): LocalDate
     // Write getter for date of birth.
     public LocalDate getDateOfBirth(){
         return this.dateOfBirth;
     }
 
-    //TODO:+ setDateOfBirth(LocalDate): void
     // Write setter for date of birth.
+    public void setDateOfBirth(String dateOfBirth){
+        this.dateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    }
 
-    //TODO:+ getAccountNumber(): Integer
     // Write getter for account number.
     public Integer getAccountNumber(){
         return this.accountNumber;
     }
 
-    //TODO:+ setAccountNumber(Integer): void
     // Write setter for account number.
+    public void setAccountNumber(Integer accountNumber){
+        this.accountNumber = accountNumber;
+    }
 
-    //TODO:+ getBalance(): Double
     // Write getter for balance.
     public Double getBalance(){
         return this.balance;
     }
 
-    //TODO:+ deposit(Double): void
     // Write deposit method to add amount and update balance.
+    public void deposit(Double amount){
+        this.balance += amount;
+    }
 
-    //TODO:+ withdrawal(Double): void
     // Write withdrawal method to take out an amount and update balance.
-
-    //TODO:+ payInterest(Double): void
+    public void withdrawal(Double amount){
+        this.balance -= amount;
+    }
+    
     // Write payInterest method to pay interest on the balance.
+    public void payInterest(){
+        Double interestRate = (double) 1/100;
+        this.balance = this.balance*interestRate + this.balance;
+    }
 }
