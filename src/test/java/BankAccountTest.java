@@ -11,7 +11,7 @@ public class BankAccountTest {
     // arrange step-2
     @BeforeEach
     public void setUp(){
-        bankaccount = new BankAccount("Conor", "McGregor", "14-07-1988", 12345678);
+        bankaccount = new BankAccount("Conor", "McGregor", "14-07-1988", 12345678, "Savings");
     }
 
     @Test
@@ -105,7 +105,25 @@ public class BankAccountTest {
         bankaccount.deposit(1000.00);
         bankaccount.payInterest();
         Double result = bankaccount.getBalance();
-        Double expected = 1010.00;
+        Double expected = 1050.00;
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void canWithdrawAboveOverdraft(){
+        bankaccount.deposit(1000.00);
+        bankaccount.withdrawal(990.00);
+        Double result = bankaccount.getBalance();
+        Double expected = 10.00;
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void cannotWithdrawBelowOverdraft(){
+        bankaccount.deposit(1000.00);
+        bankaccount.withdrawal(991.00);
+        Double result = bankaccount.getBalance();
+        Double expected = 1000.00;
         assertThat(result).isEqualTo(expected);
     }
 

@@ -1,4 +1,3 @@
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -15,12 +14,14 @@ public class BankAccount {
     private Double overdraft;
 
     // Define a constructor.
-    public BankAccount(String firstName, String lastName, String dateOfBirth, Integer accountNumber){
+    public BankAccount(String firstName, String lastName, String dateOfBirth, Integer accountNumber, String accountType){
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         this.accountNumber = accountNumber;
         this.balance = 0.00;
+        this.accountType = accountType;
+        this.overdraft = 10.00;
     }
 
     //Write getter for first name.
@@ -75,12 +76,25 @@ public class BankAccount {
 
     // Write withdrawal method to take out an amount and update balance.
     public void withdrawal(Double amount){
-        this.balance -= amount;
+        if (this.balance-amount >= this.overdraft){
+            this.balance -= amount;
+        }
     }
-    
+
     // Write payInterest method to pay interest on the balance.
     public void payInterest(){
-        Double interestRate = (double) 1/100;
-        this.balance = this.balance*interestRate + this.balance;
+        Double savingInterestRate = (double) 5/100;
+        Double currentInterestRate = (double) 1/100;
+        switch (this.accountType.toLowerCase()){
+            case "savings":
+                this.balance = this.balance*savingInterestRate + this.balance;
+                break;
+            case "current":
+                this.balance = this.balance*currentInterestRate + this.balance;
+                break;
+        }
     }
+
+
+
 }
